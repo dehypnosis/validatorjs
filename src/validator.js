@@ -250,11 +250,16 @@ Validator.prototype = {
     var propertyValue = this._objectPath(this.input, parentPath);
 
     if (propertyValue) {
-      for (var propertyNumber = 0; propertyNumber < propertyValue.length; propertyNumber++) {
+      Object.keys(propertyValue).forEach(key => {
         var workingValues = wildCardValues ? wildCardValues.slice() : [];
-        workingValues.push(propertyNumber);
-        this._parseRulesCheck(attribute.replace('*', propertyNumber), rulesArray, parsedRules, workingValues);
-      }
+        workingValues.push(key);
+        this._parseRulesCheck(attribute.replace('*', key), rulesArray, parsedRules, workingValues);
+      })
+      // for (var propertyNumber = 0; propertyNumber < propertyValue.length; propertyNumber++) {
+      //   var workingValues = wildCardValues ? wildCardValues.slice() : [];
+      //   workingValues.push(propertyNumber);
+      //   this._parseRulesCheck(attribute.replace('*', propertyNumber), rulesArray, parsedRules, workingValues);
+      // }
     }
   },
 

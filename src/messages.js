@@ -134,7 +134,12 @@ Messages.prototype = {
     var message, attribute;
 
     data.attribute = this._getAttributeName(rule.attribute);
-    data[rule.name] = data[rule.name] || rule.getParameters().join(',');
+    var params = rule.getParameters();
+    params.forEach((param, key) => {
+      const name = this._getAttributeName(param) || param;
+      data[key] = name;
+    });
+    data[rule.name] = data[rule.name] || params.join(',');
 
     if (typeof template === 'string' && typeof data === 'object') {
       message = template;
